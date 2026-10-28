@@ -1,0 +1,14 @@
+{
+  "name": "cupmotion",
+  "description": "Моушен-студия для Claude Code: ролики кодом от раскадровки до MP4 со звуком.",
+  "owner": {
+    "name": "faizullin studio"
+  },
+  "plugins": [
+    {
+      "name": "cupmotion",
+      "source": "./plugins/cupmotion",
+      "description": "Моушен-студия для Claude: ролики кодом от раскадровки до MP4 со звуком, с автоматическим подбором стилей, промптов и сайтов по словам запроса."
+    }
+  ]
+}

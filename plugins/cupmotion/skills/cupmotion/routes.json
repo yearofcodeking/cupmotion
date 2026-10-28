@@ -1,0 +1,335 @@
+{
+  "_about": "Словарь триггеров cupmotion. video — сильные слова: сообщение точно про ролик. soft — мягкие слова: считаются, только если в сообщении нет ничего из notVideo (код интерфейса). routes — что подключать: match срабатывает, когда сообщение про ролик (маршрут flow с match [\"[\\\\s\\\\S]\"] срабатывает на любой ролик и всегда подключает справочники плавности и связности); solo — срабатывает даже без слов про ролик. styles — разделы references/styles.md, refs — файлы references/, sites, tips. Регулярки JavaScript, флаги iu. Короткое сообщение (до longMessage = 600 знаков) подключает всё названное. В длинном (вставленный бриф или документ) маршруту нужны два его слова (solo считается вдвое; повтор слова и слово после «стиль» тоже засчитываются как второе), и подкладывается не больше maxRoutes (5) маршрутов и maxStyles (4) стилевых разделов; маршрут с always: true в лимит не входит, отброшенное хук называет одной строкой. Свои слова — в ~/.claude/cupmotion.routes.json (та же форма, сливается сверху и не стирается обновлением).",
+  "video": ["моуш[еэ]?н", "motion[\\s-]?(graphics?|design|video)", "(?<![\\p{L}])видео(?!карт)", "видеоролик", "(?<![\\p{L}])ролик", "(?<![\\p{L}])мульт(?:ик|фильм|ипликац|(?![\\p{L}]))", "(?<![\\p{L}])промо(?!код|\\p{L}*акц)", "промо-?ролик", "шоурил", "showreel", "(?<![\\p{L}])клип(?!борд|арт)", "объяснялк", "explainer", "кинетическ\\p{L}* типограф", "kinetic typo", "(?<![\\p{L}])шортс", "(?<![\\p{L}])reels?(?![\\p{L}])", "\\.mp4(?![\\p{L}])", "cupmotion"],
+  "soft": ["анимац", "анимир", "заставк", "(?<![\\p{L}])интро(?![\\p{L}])", "(?<![\\p{L}])аутро(?![\\p{L}])", "(?<![\\p{L}])motion(?![\\p{L}])", "кинетическ", "kinetic"],
+  "notVideo": ["css", "кнопк", "модалк", "модальн", "hover", "ховер", "transition", "keyframes", "компонент", "component", "react", "framer", "tailwind", "jsx", "tsx", "вёрстк|верстк", "onClick", "useEffect", "emotion", "promotion", "лоадер|loader|спиннер|spinner"],
+  "routes": [
+    {
+      "id": "flow", "label": "Плавность и связность", "always": true,
+      "match": ["[\\s\\S]"],
+      "solo": ["(?<![\\p{L}\\p{N}])3[\\s-]?[дdD](?![\\p{L}])", "(?<![\\p{L}\\p{N}])2[,.]5[\\s-]?[дdD](?![\\p{L}])", "шоурил", "showreel"],
+      "styles": [],
+      "refs": ["flow-brief.md"],
+      "sites": [],
+      "tips": ["Склеек и эффектов-переходов нет, пока пользователь прямо не попросил жёсткий монтаж: кадр идёт за кадром, смена места делается движением внутри одного мира."]
+    },
+    {
+      "id": "3d", "label": "3D",
+      "match": ["(?<![\\p{L}\\p{N}])3[\\s-]?[дdD](?![\\p{L}])", "тр[её]хмерн", "объ[её]мн", "three\\.?js", "webgl", "blender|блендер"],
+      "solo": ["(?<![\\p{L}\\p{N}])3[\\s-]?[дdD](?![\\p{L}])"],
+      "styles": ["premium-3d", "depth-3d"],
+      "refs": ["3d.md"],
+      "sites": [
+        {"name": "Poly Haven — модели CC0", "url": "https://polyhaven.com/models"},
+        {"name": "Kenney — 3D-наборы CC0", "url": "https://kenney.nl/assets/category:3D"},
+        {"name": "Quaternius — персонажи и риги", "url": "https://quaternius.com/", "note": "лицензия у каждого выпуска своя"},
+        {"name": "Sketchfab — скачиваемые модели", "url": "https://sketchfab.com/3d-models?features=downloadable&sort_by=-likeCount", "note": "нужен аккаунт пользователя, аккаунты не создавать"},
+        {"name": "Poly Pizza", "url": "https://poly.pizza/explore", "note": "только вручную: условия сайта запрещают автоматическую загрузку"}
+      ]
+    },
+    {
+      "id": "2.5d", "label": "2,5D",
+      "match": ["(?<![\\p{L}\\p{N}])2[,.]5[\\s-]?[дdD](?![\\p{L}])", "параллакс", "многоплан"],
+      "solo": ["(?<![\\p{L}\\p{N}])2[,.]5[\\s-]?[дdD](?![\\p{L}])"],
+      "styles": ["depth-25d"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "2d", "label": "2D",
+      "match": ["(?<![\\p{L}\\p{N},.])2[\\s-]?[дdD](?![\\p{L}])"],
+      "solo": [],
+      "styles": ["depth-2d"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "handdrawn", "label": "Рисованный от руки",
+      "match": ["рисован", "от руки", "скетч", "туш(ь|ью)", "карандаш", "набросок", "hand.?drawn", "doodle"],
+      "solo": [],
+      "styles": ["handdrawn"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "paper", "label": "Бумажный коллаж",
+      "match": ["бумаж", "коллаж", "вырезк", "(?<![\\p{L}])paper", "cut.?out", "стоп.?моушн|stop.?motion"],
+      "solo": [],
+      "styles": ["paper"],
+      "refs": ["paper-collage.md"],
+      "sites": []
+    },
+    {
+      "id": "vector", "label": "Векторная иллюстрация",
+      "match": ["вектор", "фл[эе]т(?![\\p{L}])", "(?<![\\p{L}])flat(?![\\p{L}])"],
+      "solo": [],
+      "styles": ["vector"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "comic", "label": "Комикс и стикеры",
+      "match": ["комикс", "стикер", "(?<![\\p{L}])comic", "sticker", "поп.?арт"],
+      "solo": [],
+      "styles": ["comic"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "pixel", "label": "Пиксель-арт",
+      "match": ["пиксел", "пиксель", "8.?бит", "(?<![\\p{L}])pixel", "ретро.?игр"],
+      "solo": [],
+      "styles": ["pixel"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "kinetic-type", "label": "Кинетическая типографика",
+      "match": ["типограф", "кинетическ", "kinetic", "(?<!суб)титр", "(?<![\\p{L}])lyric"],
+      "solo": [],
+      "styles": ["kinetic-type"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "neon", "label": "Неоновый технологичный",
+      "match": ["неон", "(?<![\\p{L}])hud(?![\\p{L}])", "киберпанк|cyberpunk", "технологичн", "sci.?fi", "голограм", "футуристич"],
+      "solo": [],
+      "styles": ["neon"],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "ui", "label": "Интерфейс / SaaS",
+      "match": ["saas", "интерфейс", "(?<![\\p{L}])ui(?![\\p{L}])", "приложени", "дашборд|dashboard", "курсор", "лендинг|landing", "сайт"],
+      "solo": [],
+      "styles": ["saas-ui"],
+      "refs": ["ui-motion.md", "product-launch.md"],
+      "sites": []
+    },
+    {
+      "id": "launch", "label": "Промо / запуск продукта",
+      "match": ["промо", "запуск", "лаунч", "launch", "реклам", "продукт", "бренд", "saas", "стартап", "startup", "product.?hunt"],
+      "solo": [],
+      "styles": [],
+      "refs": ["product-launch.md", "launch-video.md"],
+      "sites": [
+        {"name": "What Ships — каталог лаунч-роликов из X", "url": "https://whatships.com/"},
+        {"name": "Launch Library — лаунч-ролики с метриками", "url": "https://launchlibrary.xyz/"}
+      ],
+      "tips": ["Лаунч-ролик: выбрать ветку стиля (apple-minimal, launch-gradient, launch-playful-3d, launch-dark, launch-tech) по карте стилей в styles.md, если пользователь её не назвал."]
+    },
+    {
+      "id": "st-apple", "label": "Стиль: Apple-минимализм",
+      "match": ["[эе]пп?л|apple|айфон|iphone|макбук|macbook", "минимали", "minimal", "как у эппл"],
+      "solo": [], "styles": ["apple-minimal"], "refs": ["launch-video.md"], "sites": []
+    },
+    {
+      "id": "st-gradient", "label": "Стиль: яркий градиент",
+      "match": ["градиент", "gradient", "перелив", "mesh"],
+      "solo": [], "styles": ["launch-gradient"], "refs": ["launch-video.md"], "sites": []
+    },
+    {
+      "id": "st-playful3d", "label": "Стиль: глянцевый 3D",
+      "match": ["глянц", "glossy", "3[дd][\\s-]?иконк", "финтех|fintech", "playful", "игрив"],
+      "solo": [], "styles": ["launch-playful-3d"], "refs": ["launch-video.md"], "sites": []
+    },
+    {
+      "id": "st-dark", "label": "Стиль: тёмный премиум",
+      "match": ["т[её]мн\\p{L}* (премиум|фон|тем|стил)", "dark (premium|mode|theme)", "свечени|glow"],
+      "solo": [], "styles": ["launch-dark"], "refs": ["launch-video.md"], "sites": []
+    },
+    {
+      "id": "st-tech", "label": "Стиль: технический лаунч",
+      "match": ["воркфлоу|workflow", "автоматизац|automation", "no.?code|ноу.?код", "(?<![\\p{L}])api(?![\\p{L}])", "разработчик|developer|devtool"],
+      "solo": [], "styles": ["launch-tech"], "refs": ["launch-video.md"], "sites": []
+    },
+    {
+      "id": "st-swiss", "label": "Стиль: швейцарский",
+      "match": ["швейцар", "swiss", "баухаус|bauhaus", "хельветик|helvetica", "модульн\\p{L}* сетк"],
+      "solo": [], "styles": ["swiss"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-brutal", "label": "Стиль: брутализм",
+      "match": ["брутал", "brutal", "анти.?дизайн|anti.?design"],
+      "solo": [], "styles": ["brutalist"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-y2k", "label": "Стиль: Y2K / хром",
+      "match": ["y2k", "хром(?![оа]кей)", "chrome", "нулевы", "жидк\\p{L}* металл|liquid metal"],
+      "solo": [], "styles": ["y2k"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-glass", "label": "Стиль: стекло",
+      "match": ["стекл|стеклян", "glass", "прозрачн\\p{L}* панел"],
+      "solo": [], "styles": ["glass"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-clay", "label": "Стиль: мягкий 3D / пластилин",
+      "match": ["пластилин", "глин(я|е|о)", "(?<![\\p{L}])clay", "мягк\\p{L}* 3[дd]", "soft 3d", "надут"],
+      "solo": [], "styles": ["clay-3d"], "refs": ["3d.md"], "sites": []
+    },
+    {
+      "id": "st-iso", "label": "Стиль: изометрия",
+      "match": ["изометр", "isometric"],
+      "solo": [], "styles": ["isometric"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-riso", "label": "Стиль: зерно / ризограф",
+      "match": ["ризограф|risograph", "зернист|(?<![\\p{L}])зерно", "(?<![\\p{L}])grain", "полутон|halftone"],
+      "solo": [], "styles": ["risograph"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-doc", "label": "Стиль: документалка",
+      "match": ["документал", "архивн", "ken burns", "газетн", "расследован", "true crime"],
+      "solo": [], "styles": ["documentary"], "refs": ["explainer.md"], "sites": []
+    },
+    {
+      "id": "st-editorial", "label": "Стиль: журнальный",
+      "match": ["журнальн", "редакционн", "editorial", "magazine"],
+      "solo": [], "styles": ["editorial"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-liquid", "label": "Стиль: жидкие формы",
+      "match": ["жидк", "капл[иея]", "(?<![\\p{L}])liquid", "blob|блоб", "метабол", "морфинг"],
+      "solo": [], "styles": ["liquid"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-gen", "label": "Стиль: генеративный",
+      "match": ["генератив", "шейдер", "shader", "generative", "абстрак"],
+      "solo": [], "styles": ["generative"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-lofi", "label": "Стиль: lo-fi / аниме",
+      "match": ["ло.?фай|lo.?fi", "аниме|anime", "уютн|cozy"],
+      "solo": [], "styles": ["lofi"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-tiktok", "label": "Стиль: шортс-субтитры",
+      "match": ["тик.?ток|tiktok", "кап.?кат|capcut", "субтитр", "caption", "рилс|reels", "шортс|shorts"],
+      "solo": [], "styles": ["tiktok"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-lux", "label": "Стиль: люкс / мода",
+      "match": ["люкс|luxury", "роскош", "премиальн", "(?<![\\p{L}])мод(а|ы|е|ный|ная|ное)(?![\\p{L}])|fashion", "парфюм|духи|ювелир"],
+      "solo": [], "styles": ["luxury"], "refs": [], "sites": []
+    },
+    {
+      "id": "st-cine", "label": "Стиль: кинотрейлер",
+      "match": ["трейлер|trailer", "кинематограф|cinematic", "как в кино", "эпичн|epic"],
+      "solo": [], "styles": ["cinematic"], "refs": [], "sites": []
+    },
+    {
+      "id": "explainer", "label": "Объяснялка / шортс",
+      "match": ["объясн", "explainer", "научно.?поп", "как работает", "kurzgesagt|курцгезагт|кургезагт", "истори[яиюей]", "историческ", "документал", "шортс|shorts", "новост"],
+      "solo": [],
+      "styles": [],
+      "refs": ["explainer.md"],
+      "sites": []
+    },
+    {
+      "id": "map", "label": "Карты и география",
+      "match": ["карт(а|е|у|ы|ой|ах|ами)(?![\\p{L}])", "(?<![\\p{L}])maps?(?![\\p{L}])", "географ", "маршрут", "границ", "стран(а|ы|е|у|ами)(?![\\p{L}])"],
+      "solo": [],
+      "styles": [],
+      "refs": ["explainer.md"],
+      "sites": [
+        {"name": "Natural Earth — контуры стран, общественное достояние", "url": "https://www.naturalearthdata.com/", "note": "удобно через npm-пакет world-atlas (TopoJSON); скачивание с разрешения пользователя"}
+      ]
+    },
+    {
+      "id": "data", "label": "Графики и данные",
+      "match": ["(?<![\\p{L}])график", "диаграмм", "инфографик", "статистик", "data.?viz", "данн(ые|ых|ыми)(?![\\p{L}])", "сч[её]тчик"],
+      "solo": [],
+      "styles": [],
+      "refs": ["explainer.md"],
+      "sites": []
+    },
+    {
+      "id": "music", "label": "Клип под песню",
+      "match": ["(?<![\\p{L}])клип", "песн", "музыкальн", "под трек", "под музык"],
+      "solo": [],
+      "styles": [],
+      "refs": ["music-video.md", "sound.md"],
+      "sites": []
+    },
+    {
+      "id": "logo", "label": "Логотип / заставка",
+      "match": ["логотип", "(?<![\\p{L}])лого(?![\\p{L}])", "(?<![\\p{L}])logo", "заставк", "интро", "аутро", "(?<![\\p{L}])(intro|outro)(?![\\p{L}])"],
+      "solo": [],
+      "styles": [],
+      "refs": [],
+      "sites": []
+    },
+    {
+      "id": "showreel", "label": "Шоурил",
+      "match": ["шоурил", "showreel", "(?<![\\p{L}])reel(?![\\p{L}])"],
+      "solo": ["шоурил", "showreel"],
+      "styles": [],
+      "refs": ["showreel.md"],
+      "sites": []
+    },
+    {
+      "id": "reference", "label": "Есть референс",
+      "match": ["референс", "reference", "в стиле", "youtube\\.com|youtu\\.be|x\\.com/|twitter\\.com/", "\\.(mp4|mov|webm|gif)(?![\\p{L}])", "похож\\p{L}* на", "ссылк\\p{L}* на (видео|ролик)"],
+      "solo": [],
+      "styles": [],
+      "refs": ["reference.md"],
+      "sites": [],
+      "tips": ["Видео-референс: разобрать фрагмент до 60 секунд по кадрам и звуку и перенести приёмы движения и стиля на свой сюжет, а не содержание."]
+    },
+    {
+      "id": "character", "label": "Персонаж в нескольких позах",
+      "match": ["персонаж", "геро(й|я|ем|ю)(?![\\p{L}])", "маскот|mascot", "поз(ы|ах|ами|у)(?![\\p{L}])", "character"],
+      "solo": [],
+      "styles": [],
+      "refs": ["image-continuity.md"],
+      "sites": [],
+      "tips": ["Покадровая анимация героя: серия изображений одного персонажа с разными позами, каждую позу генерировать по одним и тем же исходным референсам."]
+    },
+    {
+      "id": "long", "label": "Длинный ролик",
+      "match": ["\\d+\\s*(мин|минут)", "длинн", "(?<![\\p{L}])фильм", "документальн"],
+      "solo": [],
+      "styles": [],
+      "refs": ["long-film.md"],
+      "sites": []
+    },
+    {
+      "id": "delegation", "label": "Делегирование агентам",
+      "match": ["делегир", "субагент", "агентам", "агентов", "параллельн", "по сценам"],
+      "solo": [],
+      "styles": [],
+      "refs": ["delegation.md"],
+      "sites": []
+    },
+    {
+      "id": "palette", "label": "Цветовая гамма",
+      "match": ["палитр", "гамм", "цветов", "цветовая", "colou?r", "оттенк"],
+      "solo": [],
+      "styles": [],
+      "refs": ["palette.md"],
+      "sites": []
+    },
+    {
+      "id": "joints", "label": "Стыки и смысл переходов",
+      "match": ["переход", "стык", "связн", "связан", "по смыслу", "логичн", "(?<![\\p{L}])transitions?(?![\\p{L}])", "(?<![\\p{L}])seams?(?![\\p{L}])"],
+      "solo": [],
+      "styles": [],
+      "refs": ["continuity.md"],
+      "sites": [],
+      "tips": ["Прочитать в continuity.md раздел «Смысл стыка» и «Проверка связности» (Grep по заголовку или offset/limit), не весь файл. Стык = причина «А → потому что → Б» + константа (тот же объект), без «выскочил другой»."]
+    },
+    {
+      "id": "sound", "label": "Звук и музыка",
+      "match": ["звук", "музык", "(?<![\\p{L}])sfx", "озвуч", "голос", "саунд", "(?<![\\p{L}])фоли(?![\\p{L}])"],
+      "solo": [],
+      "styles": [],
+      "refs": ["sound.md"],
+      "sites": [
+        {"name": "Mixkit — бесплатные звуки и музыка", "url": "https://mixkit.co/free-sound-effects/", "note": "скачивание с разрешения пользователя"},
+        {"name": "Pixabay Music", "url": "https://pixabay.com/music/", "note": "скачивание с разрешения пользователя"}
+      ]
+    }
+  ]
+}
