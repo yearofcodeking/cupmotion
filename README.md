@@ -149,7 +149,8 @@ cupmotion/
       ├─ routes.json                    словарь: слова → стили, справочники, сайты
       ├─ references/                    стили, 3D, промо, UI, объяснялки, клипы, звук, критика, экспорт,
       │                                 flow-brief (конспект плавности и стыков), camera-motion, object-motion, continuity (стыки и их смысл), palette (цветовая гамма),
-      │                                 launch-video (вирусный SaaS-лаунч), sound-styles (звук под стиль), libs (библиотеки: что брать и как)
+      │                                 launch-video (вирусный SaaS-лаунч), sound-styles (звук под стиль), libs (библиотеки: что брать и как),
+      │                                 footage-overlay (графика и субтитры поверх готовой записи), media-sourcing (логотипы, каталоги, Figma)
       └─ scripts/                       render, mix, review, beats, listen, doctor
 ```
 
