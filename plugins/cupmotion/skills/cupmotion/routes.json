@@ -19,6 +19,7 @@
       "solo": ["(?<![\\p{L}\\p{N}])3[\\s-]?[дdD](?![\\p{L}])"],
       "styles": ["premium-3d", "depth-3d"],
       "refs": ["3d.md"],
+      "tips": ["Свечение, глубина резкости, хроматическая аберрация, загрузка three из CDN и seek-рецепт — в libs.md, раздел «three + postprocessing» (Grep по заголовку), не весь файл."],
       "sites": [
         {"name": "Poly Haven — модели CC0", "url": "https://polyhaven.com/models"},
         {"name": "Kenney — 3D-наборы CC0", "url": "https://kenney.nl/assets/category:3D"},
@@ -49,7 +50,8 @@
       "solo": [],
       "styles": ["handdrawn"],
       "refs": [],
-      "sites": []
+      "sites": [],
+      "tips": ["Рисунок от руки можно собрать на Rough.js, но только с seed и фигурами, созданными один раз: рецепт в libs.md, раздел «Rough.js» (Grep по заголовку)."]
     },
     {
       "id": "paper", "label": "Бумажный коллаж",
@@ -192,7 +194,8 @@
     {
       "id": "st-liquid", "label": "Стиль: жидкие формы",
       "match": ["жидк", "капл[иея]", "(?<![\\p{L}])liquid", "blob|блоб", "метабол", "морфинг"],
-      "solo": [], "styles": ["liquid"], "refs": [], "sites": []
+      "solo": [], "styles": ["liquid"], "refs": [], "sites": [],
+      "tips": ["Морф одной формы в другую — Flubber, чистая функция от прогресса: libs.md, раздел «Flubber» (Grep по заголовку)."]
     },
     {
       "id": "st-gen", "label": "Стиль: генеративный",
@@ -218,6 +221,15 @@
       "id": "st-cine", "label": "Стиль: кинотрейлер",
       "match": ["трейлер|trailer", "кинематограф|cinematic", "как в кино", "эпичн|epic"],
       "solo": [], "styles": ["cinematic"], "refs": [], "sites": []
+    },
+    {
+      "id": "libs", "label": "Библиотеки (GSAP, Flubber, Rough.js, постобработка)",
+      "match": ["gsap|гсап|greensock", "flubber|флаббер", "rough\\.?js", "postprocessing|постобработк", "(?<![\\p{L}])bloom(?![\\p{L}])", "tsparticles", "theatre\\.?js", "lygia", "webgl.?fluid", "shadergradient", "(?<![\\p{L}])hydra(?![\\p{L}])"],
+      "solo": [],
+      "styles": [],
+      "refs": ["libs.md"],
+      "sites": [],
+      "tips": ["Библиотека называется в запросе: перед использованием открыть вердикт в libs.md (seek-безопасность, лицензия). Что в списке «нет» — не подключать без причины, назвать пользователю замену."]
     },
     {
       "id": "explainer", "label": "Объяснялка / шортс",
